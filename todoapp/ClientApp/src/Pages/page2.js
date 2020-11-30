@@ -264,8 +264,8 @@ import FormUpdate from './FormUpdate';
                      <td>{todo.description}</td>
                      <td>{todo.deadline}</td>
                      <td>{todo.status}</td>
-                     <button onClick={() => this.handleDelete(todo.id, num)} style={this.buttonstyle}>Delete</button>
-                     <button onClick={() => this.setStateUpdate(num, todo.id, todo.title)} style={this.buttonstyle}>Update</button>
+                     <td><button onClick={() => this.handleDelete(todo.id, num)} style={this.buttonstyle}>Delete</button></td>
+                     <td><button onClick={() => this.setStateUpdate(num, todo.id, todo.title)} style={this.buttonstyle}>Update</button></td>
                  </tr>
              ))}
          </td>);

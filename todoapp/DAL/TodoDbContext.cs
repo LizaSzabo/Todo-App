@@ -11,6 +11,7 @@ namespace todoapp.DAL
     public class TodoDbContext: DbContext
     {
         public DbSet<Todo> TodosSet { get; set; }
+     
 
         public TodoDbContext() : base()
         {

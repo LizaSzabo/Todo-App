@@ -81,8 +81,8 @@ export default class Form extends React.Component {
                         <input type="number" class="from-control" name="priority" id="prior" min="1" required />
                     </div>
                     <div style={this.inputstyle}>
-                        <button style={this.formbuttonstyles} type="submit"  >Save</button>
-                        <button style={this.formbuttonstyles} onClick={() => this.props.cancel()}>Update</button>
+                        <button class="btn btn-success m-2"  type="submit"  >Save</button>
+                        <button class="btn btn-secondary m-2" onClick={() => this.props.cancel()}>Update</button>
                     </div>
 
                 </form></div>

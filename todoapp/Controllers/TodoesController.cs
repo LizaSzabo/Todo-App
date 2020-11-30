@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using todoapp.DAL;
 using todoapp.Models;
+using todoapp.Todos_Bl;
 
 namespace todoapp.Controllers
 {
@@ -16,17 +17,19 @@ namespace todoapp.Controllers
     {
         private readonly TodoDbContext _context;
 
-        public TodoesController(TodoDbContext context)
+        private readonly TodoManager _tm;
+
+
+        public TodoesController( TodoDbContext context)
         {
             _context = context;
+            _tm = new TodoManager(context);
         }
 
         // GET: api/Todoes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Todo>>> GetTodosSet()
-        {
-            return await _context.TodosSet.ToListAsync();
-        }
+        public async Task<ActionResult<IEnumerable<Todo>>> GetTodosSet() => await _tm.GetSet();
+
 
         // GET: api/Todoes/5
         [HttpGet("{id}")]
