@@ -16,21 +16,18 @@ namespace todoapp.Controllers
     public class TodoesController : ControllerBase
     {
         private readonly TodoManager _tm;
-        private readonly TodoDbContext _context;
 
-
-        public TodoesController( TodoDbContext context)
+        public TodoesController(TodoManager tm)
         {
-            _context = context;
-            _tm = new TodoManager(context);
+            _tm = tm;
         }
 
-        // GET: api/Todoes
+      
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Todo>>> GetTodosSet() => await _tm.GetSet();
 
 
-        // GET: api/Todoes/5
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<Todo>> GetTodo(int id)
         {
@@ -44,9 +41,7 @@ namespace todoapp.Controllers
             return todo;
         }
 
-        // PUT: api/Todoes/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+      
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTodo(int id, [FromForm] Todo todo)
         {
@@ -56,7 +51,7 @@ namespace todoapp.Controllers
             }
 
             _tm.UpdateTodo(todo);
-           // _context.Entry(todo).State = EntityState.Modified;
+         
 
             try
             {
@@ -77,9 +72,7 @@ namespace todoapp.Controllers
             return NoContent();
         }
 
-        // POST: api/Todoes
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+       
         [HttpPost]
         public async Task<ActionResult<Todo>> PostTodo([FromForm] Todo todo)
         {
@@ -88,7 +81,7 @@ namespace todoapp.Controllers
             return CreatedAtAction("GetTodo", new { id = todo.ID }, todo);
         }
 
-        // DELETE: api/Todoes/5
+       
         [HttpDelete("{id}")]
         public async Task<ActionResult<Todo>> DeleteTodo(int id)
         {

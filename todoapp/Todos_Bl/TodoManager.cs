@@ -11,15 +11,12 @@ namespace todoapp.Todos_Bl
 {
     public class TodoManager
     {
-
-        private readonly TodoDbContext _context;
-        private readonly Todos todos;
+        private readonly ITodos todos;
 
 
-        public TodoManager(TodoDbContext context)
+        public TodoManager(ITodos todos)
         {
-            _context = context;
-            this.todos = new Todos(_context);
+            this.todos =todos;
         }
 
 
@@ -35,8 +32,6 @@ namespace todoapp.Todos_Bl
         {
             todos.AddTodo(todo);
             return true;
-
-
         }
 
         public void DeleteTodo(Todo todo)

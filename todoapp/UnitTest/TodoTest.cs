@@ -13,14 +13,21 @@ namespace todoapp.UnitTest
     [TestClass]
     public class TodoTest
     {
-        private readonly TodoDbContext _context;
+        
         [TestMethod]
         public async Task TestAddTodo()
         {
-            var TodosMock = new Mock<ITodos>();
-            var tm = new TodoManager(_context);
-            var todo = new Todo();
-            Assert.IsTrue(await tm.AddTodo(todo));
+            using (var context = new TodoDbContext())
+            {
+                var TodosMock = new Mock<ITodos>();
+                var tm = new TodoManager(TodosMock.Object);
+                var todo = new Todo();
+                todo.Title = "Task1";
+                todo.Priority = 1;
+                todo.Status = "done";
+                todo.Deadline = new DateTime(2000, 10, 10);
+                Assert.IsTrue(await tm.AddTodo(todo));
+            }
         }
     }
 }

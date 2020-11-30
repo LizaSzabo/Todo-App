@@ -12,12 +12,7 @@ namespace todoapp.DAL
     {
         private readonly TodoDbContext _context;
 
-
-
-        public Todos(TodoDbContext context)
-        {
-            _context = context;
-        }
+        public Todos(TodoDbContext context) => _context = context;
 
         public void AddTodo([FromForm] Todo todo)
         {
