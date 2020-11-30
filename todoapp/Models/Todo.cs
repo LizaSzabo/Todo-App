@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,5 +19,10 @@ namespace todoapp.Models
         public DateTime Deadline { get; set; }
         public string Status { get; set; }
         public int Priority { get; set; }
+
+        public static explicit operator Todo(ActionResult<Todo> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

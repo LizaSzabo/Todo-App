@@ -11,7 +11,7 @@ namespace todoapp.Todos_Bl
 {
     public class TodoManager
     {
-       
+
         private readonly TodoDbContext _context;
         private readonly Todos todos;
 
@@ -25,7 +25,36 @@ namespace todoapp.Todos_Bl
 
         public async Task<ActionResult<IEnumerable<Todo>>> GetSet(string nameToSearchFor = null) =>
           await todos.GetTodos(nameToSearchFor);
-        
 
+        public  Task<Todo> GetTodo(int id)
+        {
+            return  todos.GetTodo(id);
+        }
+
+        public void AddTodo([FromForm] Todo todo)
+        {
+            todos.AddTodo(todo);
+
+        }
+
+        public void DeleteTodo(Todo todo)
+        {
+            todos.DeleteTodo(todo);
+        }
+
+        public async Task<Int32> SaveChanges()
+        {
+            return await todos.SaveChanges();
+        }
+
+        public void UpdateTodo([FromForm] Todo todo)
+        {
+            todos.Update(todo);
+        }
+
+        public bool  ExistTodo(int id)
+        {
+            return todos.Exists(id);
+        }
     }
 }

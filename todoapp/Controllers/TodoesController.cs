@@ -15,9 +15,8 @@ namespace todoapp.Controllers
     [ApiController]
     public class TodoesController : ControllerBase
     {
-        private readonly TodoDbContext _context;
-
         private readonly TodoManager _tm;
+        private readonly TodoDbContext _context;
 
 
         public TodoesController( TodoDbContext context)
@@ -35,7 +34,7 @@ namespace todoapp.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Todo>> GetTodo(int id)
         {
-            var todo = await _context.TodosSet.FindAsync(id);
+            var todo = await _tm.GetTodo(id);
 
             if (todo == null)
             {
@@ -56,11 +55,12 @@ namespace todoapp.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(todo).State = EntityState.Modified;
+            _tm.UpdateTodo(todo);
+           // _context.Entry(todo).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await  _tm.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -83,9 +83,11 @@ namespace todoapp.Controllers
         [HttpPost]
         public async Task<ActionResult<Todo>> PostTodo([FromForm] Todo todo)
         {
-            _context.TodosSet.Add(todo);
-            await _context.SaveChangesAsync();
+           /* _context.TodosSet.Add(todo);
+            await _context.SaveChangesAsync();*/
 
+             _tm.AddTodo(todo);
+            await _tm.SaveChanges();
             return CreatedAtAction("GetTodo", new { id = todo.ID }, todo);
         }
 
@@ -93,21 +95,23 @@ namespace todoapp.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Todo>> DeleteTodo(int id)
         {
-            var todo = await _context.TodosSet.FindAsync(id);
+            var todo = await _tm.GetTodo(id);
+
             if (todo == null)
             {
                 return NotFound();
             }
-
-            _context.TodosSet.Remove(todo);
-            await _context.SaveChangesAsync();
+            
+            _tm.DeleteTodo((Todo)todo);
+            await _tm.SaveChanges();
+           
 
             return todo;
         }
 
         private bool TodoExists(int id)
         {
-            return _context.TodosSet.Any(e => e.ID == id);
+            return _tm.ExistTodo(id);
         }
     }
 }
