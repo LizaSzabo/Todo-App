@@ -16,10 +16,12 @@ namespace todoapp.Controllers
     public class TodoesController : ControllerBase
     {
         private readonly TodoManager _tm;
+        private readonly TodoDbContext _context;
 
-        public TodoesController(TodoManager tm)
+        public TodoesController(TodoDbContext context)
         {
-            _tm = tm;
+            _context = context;
+            _tm =  new TodoManager(context);
         }
 
       

@@ -12,11 +12,13 @@ namespace todoapp.Todos_Bl
     public class TodoManager
     {
         private readonly ITodos todos;
+        private readonly TodoDbContext _context;
 
 
-        public TodoManager(ITodos todos)
+        public TodoManager(TodoDbContext context)
         {
-            this.todos =todos;
+            _context = context;
+            todos = new Todos(context);
         }
 
 
