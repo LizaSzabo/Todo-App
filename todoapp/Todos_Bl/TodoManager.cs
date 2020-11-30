@@ -31,9 +31,11 @@ namespace todoapp.Todos_Bl
             return  todos.GetTodo(id);
         }
 
-        public void AddTodo([FromForm] Todo todo)
+        public async Task<bool> AddTodo([FromForm] Todo todo)
         {
             todos.AddTodo(todo);
+            return true;
+
 
         }
 

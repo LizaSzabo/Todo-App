@@ -83,10 +83,7 @@ namespace todoapp.Controllers
         [HttpPost]
         public async Task<ActionResult<Todo>> PostTodo([FromForm] Todo todo)
         {
-           /* _context.TodosSet.Add(todo);
-            await _context.SaveChangesAsync();*/
-
-             _tm.AddTodo(todo);
+            await _tm.AddTodo(todo);
             await _tm.SaveChanges();
             return CreatedAtAction("GetTodo", new { id = todo.ID }, todo);
         }
