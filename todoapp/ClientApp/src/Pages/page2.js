@@ -281,7 +281,7 @@ import FormUpdate from './FormUpdate';
          else if (num == 2) status = "cancelled";
          else if (num == 3) status = "suspended";
          else if (num == 4) status = "In progress";
-         return (<Form X={() => this.handleCancel(num)} cancel={() => this.handleCancel(num)}  status={status} title={"Add new Task"}></Form>);
+         return (<div class="col-12 m-1"><Form X={() => this.handleCancel(num)} cancel={() => this.handleCancel(num)}  status={status} title={"Add new Task"}></Form></div>);
      }
 
 
@@ -293,7 +293,7 @@ import FormUpdate from './FormUpdate';
          else if (num == 2) { Title = this.state.TitleCUpdate; ID = this.state.cId }
          else if (num == 3) { Title = this.state.TitleSUpdate; ID = this.state.sId}
          else if (num == 4) { Title = this.state.TitleIUpdate; ID = this.state.iId }
-         return (<FormUpdate X={() => this.handleCancelUpdate(num)} todoId={ID} TitleUpdating={Title} cancel={() => this.handleCancelUpdate(num)} ></FormUpdate>);
+         return (<div class="col-12 m-1"><FormUpdate X={() => this.handleCancelUpdate(num)} todoId={ID} TitleUpdating={Title} cancel={() => this.handleCancelUpdate(num)} ></FormUpdate></div>);
      }
 
      /* Add form bezarasa*/
