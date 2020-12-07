@@ -25,61 +25,10 @@ export default class TodoList extends React.Component{
 
     };
 
-    titlestyle = {
-        textAlign: 'center',
-        fontSize: '50px',
-        padding: "10px 0px 50px 0px"
-    }
-
     tablestyle = {
-        textAlign: 'center',
-        width: '1100px',
-        fontSize: '20px'
+        width: '1100px'
     };
 
-    buttonstyle = {
-        margin: '20px',
-        backgroundColor: 'pink',
-        fontSize: '30px'
-    }
-
-    littlebuttonstyle = {
-        margin: '2px',
-        backgroundColor: 'pink',
-        fontSize: '20px'
-    }
-
-    linkstyle = {
-        fontSize: '25px',
-        textAlign: 'right',
-        margin: '25px'
-    }
-
-    
-    column1 = {
-        width: '60px',
-        padding: '10px'
-    }
-    column2 = {
-        width: '150px',
-        padding: '10px'
-    }
-    column3 = {
-        width: '500px',
-        padding: '10px'
-    }
-    column4 = {
-        width: '500px',
-        padding: '10px'
-    }
-    column5 = {
-        width: '150px',
-        padding: '10px'
-    }
-    column6 = {
-        width: '30px',
-        padding: '10px'
-    }
 
     /*Adatok beolvasasa*/
     componentDidMount() {
@@ -144,21 +93,22 @@ export default class TodoList extends React.Component{
         let tablecontent = this.renderTodoTable(this.state.todos);
       
       return(
-          <div style = {this.pagestyle}>
-            <h1 style={this.titlestyle}>Todo List</h1>
-            <div style = {{textAlign : 'right', position: 'absolute' , right: '0px', width: '400px'}}>
-            <Link to="/page2" style={this.linkstyle}>Column View</Link>
-            <div>
-              <button onClick = {() => this.handleDeleteAll()} style= {this.buttonstyle}> Delete All</button>
-              <button onClick={() => this.setState({ isOpen: true })} style={this.buttonstyle}>Add Task</button>
-              <div>{this.renderFormAdd(this.state.todoId)} </div>     
-              <div>{this.renderFormUpdate(this.state.todoId)} </div>
+          <div style={this.pagestyle} >
+              <h1 class="text-center pt-3 pb-5">Todo List</h1>
+              <div class="d-flex align-items-start">
+                  <div class="text-left d-inline-block mr-3">
+                         {tablecontent}
+                  </div>
+                  <div class=" text-right d-inline-block ml-5" >
+                      <Link to="/page2"><h3 class="mr-5 mb-2 " >Column View</h3></Link>
+                      <div>
+                             <button onClick = {() => this.handleDeleteAll()} class="btn btn-danger mr-3 mb-3"><h4> Delete All</h4></button>
+                             <button onClick={() => this.setState({ isOpen: true })} class="btn btn-primary mr-3 mb-3"><h4>Add Task</h4></button>
+                             <div>{this.renderFormAdd(this.state.todoId)} </div>     
+                             <div>{this.renderFormUpdate(this.state.todoId)} </div>
+                      </div>
+                  </div>
               </div>
-            </div>
-              <div style={{ textAlign: 'left', left: '10px' }}>
-                  {tablecontent}          
-              </div>
-              
           </div>
       );
     }
@@ -167,32 +117,30 @@ export default class TodoList extends React.Component{
     renderTodoTable(todos) {
       
         return (
-            <table style={this.tablestyle}>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Deadline</th>
-                    <th>Status</th>
-                    <th>Priority</th>
-                </tr>
-            </thead>
-            <tbody>
+            <div style={ this.tablestyle}>
+                <div class= "row ">
+                    <div class= "col-1 d-flex justify-content-center"><h4>ID</h4></div>
+                    <div class="col-2 d-flex justify-content-center"><h4>Title</h4></div>
+                    <div class="col-2 d-flex justify-content-center"><h4>Description</h4></div>
+                    <div class="col-2 d-flex justify-content-center"><h4>Deadline</h4></div>
+                    <div class="col-2 d-flex justify-content-center"><h4>Status</h4></div>
+                    <div class="col-1 d-flex justify-content-center"><h4>Priority</h4></div>
+            </div>
+            <div >
                     {todos.map(todo => (
-                        <tr key={todo.id} style={{ border: '2px solid  #b3d9ff'}} >
-                        <td style={this.column1}>{todo.id}</td>
-                        <td style={this.column2}>{todo.title}</td>
-                        <td style={this.column3}>{todo.description}</td>
-                        <td style={this.column4}>{todo.deadline}</td>
-                        <td style={this.column5}>{todo.status}</td>
-                        <td style={this.column6}>{todo.priority}</td>
-                        <td><button onClick={() => this.handleDelete(todo.id)} style={this.littlebuttonstyle}>Delete</button></td>
-                        <td><button onClick={() => this.setState({ isOpenUpdate: true, todoId: todo.id, TitleUpdating: todo.title })} style={this.littlebuttonstyle}>Update</button></td>
-                    </tr>
+                        <div class= "row d-flex align-items-center" key={todo.id} style={{ border: '2px solid  #b3d9ff'}} >
+                            <div class="col-1 d-flex justify-content-center"><h5><small>{todo.id}</small></h5></div>
+                            <div class="col-2 d-flex justify-content-center"><h4><small>{todo.title}</small></h4></div>
+                            <div class="col-2 d-flex justify-content-center"><h5><small>{todo.description}</small></h5></div>
+                            <div class="col-2 d-flex justify-content-center"><h5><small>{todo.deadline}</small></h5></div>
+                            <div class="col-2 d-flex justify-content-center"><h4><small>{todo.status}</small></h4></div>
+                            <div class="col-1 d-flex justify-content-center"><h5><small>{todo.priority}</small></h5></div>
+                            <div class="col-1 d-flex justify-content-center"><button onClick={() => this.handleDelete(todo.id)} class= "btn btn-outline-danger font-weight-bold">Delete</button></div>
+                            <div class="col-1 d-flex justify-content-center"><button onClick={() => this.setState({ isOpenUpdate: true, todoId: todo.id, TitleUpdating: todo.title })} class="btn btn-outline-info font-weight-bold">Update</button></div>
+                    </div>
                 ))}
-            </tbody>
-        </table>);
+            </div>
+        </div>);
     }
 
     /*Add Form*/

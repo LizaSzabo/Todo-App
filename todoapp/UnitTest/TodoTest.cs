@@ -14,7 +14,7 @@ namespace todoapp.UnitTest
     {
 
         [TestMethod]
-        public async Task TestAddTodo()
+        public async Task TestAddTodoWithNullStatus()
         {
             var options = new DbContextOptionsBuilder<TodoDbContext>().UseInMemoryDatabase(databaseName: "MockTaskList").Options;
             using (var context = new TodoDbContext(options))
@@ -24,11 +24,13 @@ namespace todoapp.UnitTest
                 var todo = new Todo();
                 todo.Title = "Task1";
                 todo.Priority = 1;
-                todo.Status = "done";
+                //todo.Status = "done";
                 todo.Deadline = new DateTime(2000, 10, 10);
-                Assert.IsTrue(await tm.AddTodo(todo));
+                Assert.IsFalse(await tm.AddTodo(todo));
             }
         
         }
+
+
     }
 }

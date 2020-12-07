@@ -32,13 +32,23 @@ namespace todoapp.Todos_Bl
 
         public async Task<bool> AddTodo([FromForm] Todo todo)
         {
-            todos.AddTodo(todo);
-            return true;
+            if (todo.Title == null || todo.Status == null || todo.Deadline == null || todo.Priority < 1){
+                return await Task.FromResult(false);
+            }
+            else {
+                todos.AddTodo(todo);
+                return await Task.FromResult(true);
+            }
         }
 
-        public void DeleteTodo(Todo todo)
+        public async Task<bool> DeleteTodo(Todo todo)
         {
-            todos.DeleteTodo(todo);
+            if (todos.Exists(todo.ID))
+            {
+                todos.DeleteTodo(todo);
+                return await Task.FromResult(true);
+            }
+            else return await Task.FromResult(false);
         }
 
         public async Task<Int32> SaveChanges()
@@ -51,7 +61,7 @@ namespace todoapp.Todos_Bl
             todos.Update(todo);
         }
 
-        public bool  ExistTodo(int id)
+        public bool  ExistTodo(Int32 id)
         {
             return todos.Exists(id);
         }

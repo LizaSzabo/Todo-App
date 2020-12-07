@@ -54,17 +54,9 @@ import FormUpdate from './FormUpdate';
          fontSize: '20px'
      };
 
-     pagebuttonstyle = {
-         margin: '20px',
-         backgroundColor: '#cab0ff',
-         fontSize: '30px'
-     }
+   
 
-     linkstyle = {
-         fontSize: '25px',
-         textAlign: 'left',
-         margin: '20px'
-     }
+    
 /*desing elemek*/
 
 
@@ -216,11 +208,11 @@ import FormUpdate from './FormUpdate';
      render() {
          let tablecontent = this.renderTodoTable();
         return(
-            <div style style = {this.pagestyle}>
-              <h1 style={{  textAlign: 'center', fontSize : '50px'}}>Todo List</h1>
-              <Link to="/page1" style={this.linkstyle}>List View</Link>
+            <div style = {this.pagestyle}>
+                <h1 class="d-flex justify-content-center pt-3">Todo List</h1>
+                <Link to="/page1" class="d-flex justify-content-left"><h3 class="ml-3 mt-2 ">List View</h3></Link>
               <div>
-                    <button onClick={() => this.handleDeleteAll()} style = {this.pagebuttonstyle}> Delete All</button>            
+                    <button onClick={() => this.handleDeleteAll()} class="btn btn-danger ml-2 mb-3 mt-1"><h4> Delete All</h4></button>            
               </div>
                 {tablecontent}
              </div>
@@ -230,45 +222,48 @@ import FormUpdate from './FormUpdate';
      /* tablazat megjelenites*/
      renderTodoTable() {
          return (
-             <table style={this.style}>
-                 <thead>
-                     <tr style={{ fontSize: '20px' }}>
-                         <th>Done <button style={this.groupbuttonstyle} onClick={() => this.handleDeleteAllColumn("done")}> Delete All</button><button style={this.groupbuttonstyle} onClick={() => this.setState({ isOpenDone: true })}>Add Task</button></th>
-                         <th>Cancelled <button style={this.groupbuttonstyle} onClick={() => this.handleDeleteAllColumn("cancelled")}> Delete All</button><button style={this.groupbuttonstyle} onClick={() => this.setState({ isOpenCan: true })}>Add Task</button></th>
-                         <th>Suspended <button style={this.groupbuttonstyle} onClick={() => this.handleDeleteAllColumn("suspended")}> Delete All</button><button style={this.groupbuttonstyle} onClick={() => this.setState({ isOpenSus: true })}>Add Task</button></th>
-                         <th>In progress<button style={this.groupbuttonstyle} onClick={() => this.handleDeleteAllColumn("In progress")}> Delete All</button><button style={this.groupbuttonstyle} onClick={() => this.setState({ isOpenInp: true })}>Add Task</button></th>
-                     </tr>
-                 </thead>
-                 <tbody>
+             <div style={this.style}>
+                 <div>
+                     <div class = "row">
+                         <div class="col-3"><h4>Done </h4><button class="btn btn-outline-danger m-1 mb-2 font-weight-bold " onClick={() => this.handleDeleteAllColumn("done")}> Delete All</button><button class="btn btn-outline-primary m-1 mb-2 font-weight-bold" onClick={() => this.setState({ isOpenDone: true })}>Add Task</button></div>
+                         <div class="col-3"><h4>Cancelled </h4><button class="btn btn-outline-danger m-1 mb-2 font-weight-bold" onClick={() => this.handleDeleteAllColumn("cancelled")}> Delete All</button><button class="btn btn-outline-primary m-1 mb-2 font-weight-bold"  onClick={() => this.setState({ isOpenCan: true })}>Add Task</button></div>
+                         <div class="col-3"><h4>Suspended </h4><button class="btn btn-outline-danger m-1 mb-2 font-weight-bold" onClick={() => this.handleDeleteAllColumn("suspended")}> Delete All</button><button class="btn btn-outline-primary m-1 mb-2 font-weight-bold"  onClick={() => this.setState({ isOpenSus: true })}>Add Task</button></div>
+                         <div class="col-3"><h4> In progress</h4><button class="btn btn-outline-danger m-1 mb-2 font-weight-bold" onClick={() => this.handleDeleteAllColumn("In progress")}> Delete All</button><button class="btn btn-outline-primary m-1 mb-2 font-weight-bold"  onClick={() => this.setState({ isOpenInp: true })}>Add Task</button></div>
+                     </div>
+                 </div>
+                 <div class="row">
                      {this.rendercolumn(this.state.done, 1)}
                      {this.rendercolumn(this.state.cancelled, 2)}
                      {this.rendercolumn(this.state.suspended, 3)}
                      {this.rendercolumn(this.state.inprogres, 4)}
-                     <tr style={{ verticalAlign: 'top' }}>
-                         <td><div>{this.renderFormD()} </div><div>{this.renderFormUpdateD()} </div></td>
-                         <td><div>{this.renderFormC()} </div><div>{this.renderFormUpdateC()} </div> </td>
-                         <td><div>{this.renderFormS()} </div><div>{this.renderFormUpdateS()} </div> </td>
-                         <td><div>{this.renderFormI()} </div><div>{this.renderFormUpdateI()} </div></td>
-                     </tr>
-                 </tbody>
-             </table>
+                 </div>
+                 <div class="row"style={{ verticalAlign: 'top' }}>
+                     <div class="col-3"><div class="row">{this.renderFormD()} </div><div class="row">{this.renderFormUpdateD()} </div></div>
+                     <div class="col-3"><div class="row">{this.renderFormC()} </div><div class="row">{this.renderFormUpdateC()} </div> </div>
+                     <div class="col-3"><div class="row">{this.renderFormS()} </div><div class="row">{this.renderFormUpdateS()} </div> </div>
+                     <div class="col-3"><div class="row">{this.renderFormI()} </div><div class="row">{this.renderFormUpdateI()} </div></div>
+                 </div>
+                
+             </div>
          );
      }
 
      /*a tablazat egy oszlopanak megjelenitese */
      rendercolumn(todoarr, num) {
-         return (<td style={{ textAlign: 'top', width: '375px', verticalAlign: 'top' }}>
+         return (<div class="col-3" style={{ textAlign: 'top',  verticalAlign: 'top' }}>
              {todoarr.map(todo => (
-                 <tr style={{ border: '2px solid #ff99e6', backgroundColor: '#eed2d0'}} key={todo.id}  >
-                     <td>{todo.title}</td>
-                     <td>{todo.description}</td>
-                     <td>{todo.deadline}</td>
-                     <td>{todo.status}</td>
-                     <td><button onClick={() => this.handleDelete(todo.id, num)} style={this.buttonstyle}>Delete</button></td>
-                     <td><button onClick={() => this.setStateUpdate(num, todo.id, todo.title)} style={this.buttonstyle}>Update</button></td>
-                 </tr>
+                 <div class= "row d-flex align-items-center" style={{ border: '2px solid #ff99e6', backgroundColor: '#eed2d0'}} key={todo.id}  >
+                     <div class="col-2"><h6><small>{todo.title}</small></h6></div>
+                     <div class="col-3"><h6><small>{todo.description}</small></h6></div>
+                     <div class="col-2"><h6><small>{todo.deadline}</small></h6></div>
+                     <div class="col-3 align-self-start justify-content-center mt-2"><h6><small>{todo.status}</small></h6></div>
+                     <div class="col-2">
+                         <div class="row"><button onClick={() => this.handleDelete(todo.id, num)} class="btn btn-outline-danger btn-sm mb-1 mt-1"><h6><small>Delete</small></h6></button></div>
+                         <div class="row"><button onClick={() => this.setStateUpdate(num, todo.id, todo.title)} class="btn btn-outline-info btn-sm mt-1 mb-1"><h6><small>Update</small></h6></button></div>
+                    </div>
+                 </div>
              ))}
-         </td>);
+         </div>);
      }
 
      /* state frissites updated elem fuggvenyeben*/

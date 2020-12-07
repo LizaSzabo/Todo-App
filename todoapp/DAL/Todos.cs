@@ -24,7 +24,7 @@ namespace todoapp.DAL
             _context.TodosSet.Remove(todo);
         }
 
-        public bool Exists(int todo_id)
+        public bool Exists(Int32 todo_id)
         {
             return _context.TodosSet.Any(e => e.ID == todo_id);
         }

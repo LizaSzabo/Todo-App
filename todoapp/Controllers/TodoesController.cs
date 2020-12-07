@@ -94,7 +94,7 @@ namespace todoapp.Controllers
                 return NotFound();
             }
             
-            _tm.DeleteTodo((Todo)todo);
+            await _tm.DeleteTodo((Todo)todo);
             await _tm.SaveChanges();
            
 

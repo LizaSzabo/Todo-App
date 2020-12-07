@@ -24,28 +24,6 @@ export default class Form extends React.Component {
         border: '2px solid blue',
         textAlign: 'left'
     }
-    closeButtonstyle = {
-        textAlign: 'right',
-        fontSize: '35px'
-    }
-
-    formbuttonstyles = {
-        margin: "10px",
-        fontSize: "24px",
-        padding: "5px 20px"
-    }
-
-    inputstyle = {
-        paddingLeft: "30px"
-    }
-
-
-    labelstyle = {
-        paddingRight: "10px",
-        fontWeight: "500"
-    }
-
-
 
     render() {
         var hidden_value = false;
@@ -54,24 +32,24 @@ export default class Form extends React.Component {
         else { hidden_value = true; val = this.props.status }
         return (
             <div style={this.formstyle}>
-                <div style={this.closeButtonstyle}><button onClick={() => this.props.X()}> x </button></div>
-                <h1 style={{ textAlign: 'center' }}>Add new Task</h1>
+                <div class=" d-flex justify-content-end"><button class="btn btn-danger" onClick={() => this.props.X()}><h3> x </h3></button></div>
+                <h1 class=" d-flex justify-content-center">Add new Task</h1>
                 <form onSubmit={this.handleSave}>
                     <input type="hidden" id="id" />
-                    <div style={this.inputstyle}>
-                        <label style={this.labelstyle} for="title">Title:  </label>
+                    <div class="pl-3 pr-2">
+                        <label class="pr-2" for="title"><h5>Title:  </h5></label>
                         <input type="text" class="from-control" name="title" id="title" required />
                     </div>
-                    <div style={this.inputstyle}>
-                        <label style={this.labelstyle} for="desc">Description:  </label>
-                        <textarea type="text" class="from-control" name="description" id="desc" cols="20" wrap="hard" placeholder="not required" />
+                    <div class="pl-3 pr-2">
+                        <label class="pr-2" for="desc"><h5>Description:  </h5></label>
+                        <textarea type="text" class="from-control" name="description" id="desc" cols="10" wrap="hard" placeholder="not required" />
                     </div>
-                    <div style={this.inputstyle}>
-                        <label style={this.labelstyle} for="dead">Deadline:  </label>
+                    <div class="pl-3 pr-2">
+                        <label class="pr-2" for="dead"><h5>Deadline:  </h5></label>
                         <input type="date" class="from-control" name="deadline" id="dead" required />
                     </div>
-                    <div style={this.inputstyle}>
-                        <label style={this.labelstyle} for="status" hidden={hidden_value}>Status:  </label>
+                    <div class="pl-3 pr-2">
+                        <label class="pr-2" for="status" hidden={hidden_value}><h5>Status:  </h5></label>
                         <select class="from-control" name="status" id="status" hidden={hidden_value} required={!hidden_value}>
                             <option hidden={!hidden_value} >{val}</option>
                             <option>done</option>
@@ -80,11 +58,11 @@ export default class Form extends React.Component {
                             <option>suspended</option>
                         </select>
                     </div>
-                    <div style={this.inputstyle}>
-                        <label style={this.labelstyle} for="prior">Priority:  </label>
+                    <div class="pl-3 pr-2">
+                        <label class="pr-2" for="prior"><h5>Priority:  </h5></label>
                         <input type="number" class="from-control" name="priority" id="prior" min="1" required />
                     </div>
-                    <div style={this.inputstyle}>
+                    <div class="pl-3 pr-2">
                         <button class="btn btn-success m-2"  type="submit"  >Save</button>
                         <button class="btn btn-secondary m-2" onClick={() => this.props.cancel()}>Add</button>
                     </div>

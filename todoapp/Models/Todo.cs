@@ -20,6 +20,11 @@ namespace todoapp.Models
         public string Status { get; set; }
         public int Priority { get; set; }
 
+        public static implicit operator Todo(ActionResult<IEnumerable<Todo>> v)
+        {
+            throw new NotImplementedException();
+        }
+
         public static explicit operator Todo(ActionResult<Todo> v)
         {
             throw new NotImplementedException();
