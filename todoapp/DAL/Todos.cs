@@ -1,52 +1,69 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using todoapp.Models;
+﻿// <copyright file="Todos.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-namespace todoapp.DAL
+namespace Todoapp.DAL
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using Todoapp.Models;
+
+    /// <summary>
+    /// megvalósítja az Itodos.cs interface osztályait.
+    /// </summary>
     public class Todos : ITodos
     {
-        private readonly TodoDbContext _context;
+        private readonly TodoDbContext context;
 
-        public Todos(TodoDbContext context) => _context = context;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Todos"/> class.
+        /// </summary>
+        /// <param name="context">Az adatbázis elérését teszi lehetővé.</param>
+        public Todos(TodoDbContext context) => this.context = context;
 
+        /// <inheritdoc/>
         public void AddTodo([FromForm] Todo todo)
         {
-            _context.TodosSet.Add(todo);
+            this.context.TodosSet.Add(todo);
         }
 
+        /// <inheritdoc/>
         public void DeleteTodo([FromForm] Todo todo)
         {
-            _context.TodosSet.Remove(todo);
+            this.context.TodosSet.Remove(todo);
         }
 
-        public bool Exists(Int32 todo_id)
+        /// <inheritdoc/>
+        public bool Exists(int todo_id)
         {
-            return _context.TodosSet.Any(e => e.ID == todo_id);
+            return this.context.TodosSet.Any(e => e.ID == todo_id);
         }
 
+        /// <inheritdoc/>
         public async Task<Todo> GetTodo(int id)
         {
-            return await _context.TodosSet.FindAsync(id);
+            return await this.context.TodosSet.FindAsync(id);
         }
 
+        /// <inheritdoc/>
         public async Task<ActionResult<IEnumerable<Todo>>> GetTodos(string name)
         {
-            return await _context.TodosSet.ToArrayAsync();
+            return await this.context.TodosSet.ToArrayAsync();
         }
 
+        /// <inheritdoc/>
         public async Task<int> SaveChanges()
         {
-            return await _context.SaveChangesAsync();
+            return await this.context.SaveChangesAsync();
         }
 
+        /// <inheritdoc/>
         public void Update([FromForm] Todo todo)
         {
-            _context.Entry(todo).State = EntityState.Modified;
+            this.context.Entry(todo).State = EntityState.Modified;
         }
     }
 }

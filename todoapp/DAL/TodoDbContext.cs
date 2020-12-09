@@ -1,29 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using todoapp.Models;
-using Microsoft.EntityFrameworkCore;
+﻿// <copyright file="TodoDbContext.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-
-namespace todoapp.DAL
+namespace Todoapp.DAL
 {
-    public class TodoDbContext: DbContext
+    using Microsoft.EntityFrameworkCore;
+    using Todoapp.Models;
+
+    /// <summary>
+    /// a DBContext osztály leszármazottja, az adatelérési rétegnek biztosítja az adatbázis elérését.
+    /// </summary>
+    public class TodoDbContext : DbContext
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TodoDbContext"/> class.
+        /// </summary>
+        public TodoDbContext()
+            : base()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TodoDbContext"/> class.
+        /// </summary>
+        /// <param name="options">Az adatbázis kontextus további paraméterei.</param>
+        public TodoDbContext(DbContextOptions options)
+            : base(options)
+        {
+        }
+
+        /// <summary>
+        /// Gets or sets the set of Todo elements.
+        /// </summary>
         public DbSet<Todo> TodosSet { get; set; }
-     
-
-        public TodoDbContext() : base()
-        {
-
-        }
-
-        public TodoDbContext(DbContextOptions options) : base(options)
-        {
-
-        }
-
-       
-        }
-
+    }
 }

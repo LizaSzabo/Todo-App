@@ -37,25 +37,7 @@ import FormUpdate from './FormUpdate';
          height: 2000
      };
 
-     style = {
-         textAlign: 'top',
-         width: '1500px'
-     };
-
-     buttonstyle = {
-         margin: '3px',
-         backgroundColor: '#b3fff0',
-         fontSize: '15px'
-     };
-
-     groupbuttonstyle = {
-         margin: '4px',
-         backgroundColor: '#ffaaf0',
-         fontSize: '20px'
-     };
-
-   
-
+  
     
 /*desing elemek*/
 
@@ -222,7 +204,7 @@ import FormUpdate from './FormUpdate';
      /* tablazat megjelenites*/
      renderTodoTable() {
          return (
-             <div style={this.style}>
+             <div style={{width: '1500px'}}>
                  <div>
                      <div class = "row">
                          <div class="col-3"><h4>Done </h4><button class="btn btn-outline-danger m-1 mb-2 font-weight-bold " onClick={() => this.handleDeleteAllColumn("done")}> Delete All</button><button class="btn btn-outline-primary m-1 mb-2 font-weight-bold" onClick={() => this.setState({ isOpenDone: true })}>Add Task</button></div>
@@ -250,7 +232,7 @@ import FormUpdate from './FormUpdate';
 
      /*a tablazat egy oszlopanak megjelenitese */
      rendercolumn(todoarr, num) {
-         return (<div class="col-3" style={{ textAlign: 'top',  verticalAlign: 'top' }}>
+         return (<div class="col-3 align-items-top" >
              {todoarr.map(todo => (
                  <div class= "row d-flex align-items-center" style={{ border: '2px solid #ff99e6', backgroundColor: '#eed2d0'}} key={todo.id}  >
                      <div class="col-2"><h6><small>{todo.title}</small></h6></div>
