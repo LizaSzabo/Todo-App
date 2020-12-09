@@ -21,6 +21,7 @@ Az adatbázis szerepe a felhasználó által rögzített adatok perzisztens tár
 Az architektúrához továbbá tartozik egy, az üzleti réteg metódusait tesztelő tesztelési réteg.
 A program kiinduló pontja a *Program.cs* osztályban található.
 A *Startup.cs* az alapbeállítások megvalósítását írja le.
+
 ---
 ### Adatelérési réteg. 
 A  réteg a projekt DAL mappájában kerül megvalósításra
