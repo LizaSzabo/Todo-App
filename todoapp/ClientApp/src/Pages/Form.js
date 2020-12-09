@@ -1,5 +1,4 @@
 ﻿import React from 'react';
-import ReactDOM from 'react-dom';
 
 
 export default class Form extends React.Component {
@@ -79,7 +78,7 @@ export default class Form extends React.Component {
         event.preventDefault();
 
         const data = new FormData(event.target);
-        var response = fetch('api/Todoes', { method: 'POST', body: data });
+        fetch('api/Todoes', { method: 'POST', body: data });
     }
 
 }

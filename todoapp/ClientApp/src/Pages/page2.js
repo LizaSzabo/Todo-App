@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Link from 'react-router-dom/Link';
-import { Route } from 'react-router-dom';
 import Form from './Form';
 import FormUpdate from './FormUpdate';
 
@@ -102,29 +101,37 @@ import FormUpdate from './FormUpdate';
              .then(data => {
                  this.setState({
                      data: this.state.todos.filter((record) => {
-                         return record.ID != todoID;
+                         return record.ID !== todoID;
                      })
                  })
              })
          const todos = this.state.todos.filter(todo => todo.id !== todoID);
          this.setState({ todos });
-         if (num == 1) {
+         if (num === 1) {
              const done = this.state.done.filter(d => d.id !== todoID);
              this.setState({ done });
          }
-         else if (num == 4) {
+         else if (num === 4) {
              const inprogres = this.state.inprogres.filter(i => i.id !== todoID);
              this.setState({ inprogres});
          }
-         else if (num == 3) {
+         else if (num === 3) {
              const suspended = this.state.suspended.filter(s => s.id !== todoID);
              this.setState({ suspended });
          }
-         else if (num == 2) {
+         else if (num === 2) {
              const cancelled = this.state.cancelled.filter(c => c.id !== todoID);
              this.setState({ cancelled});
          }
      }
+
+    data= (todoid) => {
+    this.setState({
+        data: this.state.todos.filter((record) => {
+            return record.ID !== todoid;
+             })
+        })
+    }
 
      /*osszes elem torlese*/ 
      handleDeleteAll = () => {
@@ -133,13 +140,7 @@ import FormUpdate from './FormUpdate';
          for (i = 0; i < arr.length; ++i) {
              var todoid = arr[i].id;
              fetch('api/Todoes/' + todoid, { method: 'delete' })
-                 .then(data => {
-                     this.setState({
-                         data: this.state.todos.filter((record) => {
-                             return record.ID != todoid ;
-                         })
-                     })
-                 })
+                 .then(this.data(todoid))
          }
 
          const todos = this.state.todos.filter(todo => todo.id < 0);
@@ -150,23 +151,23 @@ import FormUpdate from './FormUpdate';
      handleDeleteAllColumn = (column) => {
          
          var arr;
-         if (column == "done") {
-             const todos = this.state.done.filter(todo => todo.Title == "");
+         if (column === "done") {
+             const todos = this.state.done.filter(todo => todo.Title === "");
              this.setState({ done: todos });
              arr = this.state.done;
          }
-         else if (column == "In progress") {
-             const todos = this.state.inprogres.filter(todo => todo.Title == "");
+         else if (column === "In progress") {
+             const todos = this.state.inprogres.filter(todo => todo.Title === "");
              this.setState({ inprogres: todos });
              arr = this.state.inprogres;
          }
-         else if (column == "suspended") {
-             const todos = this.state.suspended.filter(todo => todo.Title == "");
+         else if (column === "suspended") {
+             const todos = this.state.suspended.filter(todo => todo.Title === "");
              this.setState({ suspended: todos });
              arr = this.state.suspended;
          }
-         else if (column == "cancelled") {
-             const todos = this.state.cancelled.filter(todo => todo.Title == "");
+         else if (column === "cancelled") {
+             const todos = this.state.cancelled.filter(todo => todo.Title === "");
              this.setState({ cancelled: todos });
              arr = this.state.cancelled;
          }
@@ -177,7 +178,7 @@ import FormUpdate from './FormUpdate';
                  .then(data => {
                      this.setState({
                          data: arr.filter((record) => {
-                             return record.Status != column;
+                             return record.Status !== column;
                          })
                      })
 
@@ -250,19 +251,19 @@ import FormUpdate from './FormUpdate';
 
      /* state frissites updated elem fuggvenyeben*/
      setStateUpdate = (num, id, title) => {
-         if (num == 1) this.setState({ TitleDUpdate: title, dId: id, isOpenDoneUpdate: true });
-         else if (num == 2) this.setState({ TitleCUpdate: title, cId: id, isOpenCanUpdate: true  });
-         else if (num == 3) this.setState({ TitleSUpdate: title, sId: id, isOpenSusUpdate: true  });
-         else if (num == 4) this.setState({ TitleIUpdate: title, iId: id, isOpenInpUpdate: true  });
+         if (num === 1) this.setState({ TitleDUpdate: title, dId: id, isOpenDoneUpdate: true });
+         else if (num === 2) this.setState({ TitleCUpdate: title, cId: id, isOpenCanUpdate: true  });
+         else if (num === 3) this.setState({ TitleSUpdate: title, sId: id, isOpenSusUpdate: true  });
+         else if (num === 4) this.setState({ TitleIUpdate: title, iId: id, isOpenInpUpdate: true  });
      }
 
      /*Add form */
      renderForm(num) {
          var status = "";
-         if (num == 1) status = "done";
-         else if (num == 2) status = "cancelled";
-         else if (num == 3) status = "suspended";
-         else if (num == 4) status = "In progress";
+         if (num === 1) status = "done";
+         else if (num === 2) status = "cancelled";
+         else if (num === 3) status = "suspended";
+         else if (num === 4) status = "In progress";
          return (<div class="col-12 m-1"><Form X={() => this.handleCancel(num)} cancel={() => this.handleCancel(num)}  status={status} title={"Add new Task"}></Form></div>);
      }
 
@@ -271,28 +272,28 @@ import FormUpdate from './FormUpdate';
      renderFormUpdate(num) {
          var Title = "";
          var ID = "";
-         if (num == 1) { Title = this.state.TitleDUpdate; ID = this.state.dId}
-         else if (num == 2) { Title = this.state.TitleCUpdate; ID = this.state.cId }
-         else if (num == 3) { Title = this.state.TitleSUpdate; ID = this.state.sId}
-         else if (num == 4) { Title = this.state.TitleIUpdate; ID = this.state.iId }
+         if (num === 1) { Title = this.state.TitleDUpdate; ID = this.state.dId}
+         else if (num === 2) { Title = this.state.TitleCUpdate; ID = this.state.cId }
+         else if (num === 3) { Title = this.state.TitleSUpdate; ID = this.state.sId}
+         else if (num === 4) { Title = this.state.TitleIUpdate; ID = this.state.iId }
          return (<div class="col-12 m-1"><FormUpdate X={() => this.handleCancelUpdate(num)} todoId={ID} TitleUpdating={Title} cancel={() => this.handleCancelUpdate(num)} ></FormUpdate></div>);
      }
 
      /* Add form bezarasa*/
      handleCancel = (num)=>{
-         if (num == 1) this.setState({ isOpenDone: false });
-         else if (num == 2) this.setState({ isOpenCan: false });
-         else if (num == 3) this.setState({ isOpenSus: false });
-         else if (num == 4) this.setState({ isOpenInp: false });
+         if (num === 1) this.setState({ isOpenDone: false });
+         else if (num === 2) this.setState({ isOpenCan: false });
+         else if (num === 3) this.setState({ isOpenSus: false });
+         else if (num === 4) this.setState({ isOpenInp: false });
          this.getData()
      }
 
  /* Update form bezarasa*/
      handleCancelUpdate = (num) => {
-         if (num == 1) this.setState({ isOpenDoneUpdate: false });
-         else if (num == 2) this.setState({ isOpenCanUpdate: false });
-         else if (num == 3) this.setState({ isOpenSusUpdate: false });
-         else if (num == 4) this.setState({ isOpenInpUpdate: false });
+         if (num === 1) this.setState({ isOpenDoneUpdate: false });
+         else if (num === 2) this.setState({ isOpenCanUpdate: false });
+         else if (num === 3) this.setState({ isOpenSusUpdate: false });
+         else if (num === 4) this.setState({ isOpenInpUpdate: false });
          this.getData()
      }
 

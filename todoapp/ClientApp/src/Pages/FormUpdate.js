@@ -1,5 +1,4 @@
 ﻿import React from 'react';
-import ReactDOM from 'react-dom';
 
 
 export default class Form extends React.Component {
@@ -72,7 +71,7 @@ export default class Form extends React.Component {
         const data = new FormData(event.target);
         const id = data.get('id');
 
-        var response = fetch('api/Todoes/' + id, { method: 'PUT', body: data });
+        fetch('api/Todoes/' + id, { method: 'PUT', body: data });
     }
 
 }

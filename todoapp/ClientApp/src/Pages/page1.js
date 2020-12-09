@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Link from 'react-router-dom/Link';
 import Form from './Form';
 import FormUpdate from './FormUpdate';
@@ -43,6 +42,15 @@ export default class TodoList extends React.Component{
        
     }
 
+
+    data = (todoid) => {
+    this.setState({
+        data: this.state.todos.filter((record) => {
+            return record.ID !== todoid;
+            })
+        })
+    }
+
     /*osszes elem torlese */
     handleDeleteAll = () => {
         var arr = this.state.todos;
@@ -50,13 +58,7 @@ export default class TodoList extends React.Component{
         for (i = 0; i < arr.length; ++i) {
             var todoid = arr[i].id;
             fetch('api/Todoes/' + todoid, { method: 'delete' })
-                .then(data => {
-                    this.setState({
-                        data: this.state.todos.filter((record) => {
-                            return record.ID != todoid;
-                        })
-                    })
-                })
+                .then(this.data(todoid))
         }
 
         const todos = this.state.todos.filter(todo => todo.id < 0);
@@ -69,7 +71,7 @@ export default class TodoList extends React.Component{
             .then(data => {
                 this.setState({
                     data: this.state.todos.filter((record) => {
-                        return record.ID != todoID;
+                        return record.ID !== todoID;
                     })
                 })
             })
