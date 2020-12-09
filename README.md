@@ -73,6 +73,7 @@ A ClientApp mappa tartalmazza a megjelenítés megvalósításához szükséges 
 ### Tesztelés
 A *UnitTest* mappában található *TodoTest.cs* osztály tartalmaza a megvalósított teszt kódját. 
 A  *public void TestAddTodoWithNullStatus()* teszt metódus az üzleti rétegbeli AddTodo metódus helyes működését ellenőrzi. A teszt sikeres lefutása azt igazolja, hogy az AddTodo metódus sikeresen kiszűrte és nem engedte tovább az adatkezelő réteg felé az egy, nem megfelelően megadott Todo objektumot.
+
 ---
 
 
