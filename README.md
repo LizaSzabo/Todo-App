@@ -3,16 +3,16 @@
 
 ## Az alkalmazás rövid bemutatása
 Az alkalmazás teendők (todo-k) kezelésére alkalmas. Az alkalmazás által tárolt teendőkkel a következő műveleteket végezheti a felhasználó:
-- hozzáad a listához egy új teendőt
-- töröl teendőt, akár az összeset egyszerre
-- egy meglévő teendőt módosít
+- hozzáad a listához egy új teendőt (Add Task gombokkal)
+- töröl teendőt, akár az összeset egyszerre (Delete és Delete All gombok)
+- egy meglévő teendőt módosít (Update gomb)
 - a teendők között prioritást határoz meg a prioritás attribútum értékének megadásával az egyes elemek esetén
-- összesített listaként vagy státus szerint csoportosítva tekintheti meg és kezelheti a tárolt datokat.
+- összesített listaként vagy státus szerint csoportosítva tekintheti meg és kezelheti a tárolt datokat. (List View és Column View linkekkel lehet a két nézet között navigálni).
 
 ## Az alkalmazás beüzemeltetése
 A todoapp.sln projekt file megnyitása és elindítása Visual Studio fejlesztőkörnyezetben lehetséges. A projekt futtatásához szükséges az *ASP .NET and web development* csomag telepítése Visual Studioban.
-1. A perzisztens adattárolás érdekében adatbázis létrehozása is szükséges. Szintén a Visual Studio fejlesztőkörnyezeten belül létrehozandó egy új adatbázis, *Todos* néven. 
-2. Ez az SQL Server Object Explorer nézetben lehetséges, a (localdb)\MSSQLLocalDB Database mappájához hozzáadva. A *Todos* adatbázishoz továbbá létre kell hozni a *Todo* táblázatot, amelynek létrehozási script-je a *dbo.Todo.sql* file-ban található.
+1. A perzisztens adattárolás érdekében adatbázis létrehozása is szükséges. Szintén a Visual Studio fejlesztőkörnyezeten belül létrehozandó egy új adatbázis, *Todos* néven. Ez az SQL Server Object Explorer nézetben lehetséges, a (localdb)\MSSQLLocalDB Database mappájához hozzáadva.
+2. A *Todos* adatbázishoz továbbá létre kell hozni a *Todo* táblázatot, amelynek létrehozási script-je a *dbo.Todo.sql* file-ban található.
 3. Az alkalmazás elindítható az F5-ös billentyű lenyomásával, majd ezt követően a megnyílt weboldalon elérhető a felhasználói felület.
 ## Az alkalmazás architektúrája
 Az alkalmazás többrétegű architektúra mintájára lett megvalósítva. 
@@ -28,7 +28,7 @@ A  réteg a projekt DAL mappájában kerül megvalósításra
 - ***TodoDBContext.cs***: a DBContext osztály leszármazottja, az adatelérési rétegnek biztosítja az adatbázis elérését.
 - ***ITodos.cs***: interface, amely összefoglalja az adatbázist kezelő függvényeket. 
     - ***Task<ActionResult<IEnumerable<Todo>>> GetTodos(string name = null)*** - lekérdezi az adatbázisban tárolt összes todo elem listáját.
-    - **Task<Todo> GetTodo(int id)***- egy teendőt kérdez le, a paraméterként megadott id-ja alapján azonosítva.
+    - ***Task<Todo> GetTodo(int id)***- egy teendőt kérdez le, a paraméterként megadott id-ja alapján azonosítva.
     - ***void AddTodo([FromForm] Todo todo)*** - megvalósítja a paraméterben kapott todo hozzáadását az  adatbázishoz.
     - ***void DeleteTodo(Todo todo)*** - megvalósítja a paraméterben kapott todo törlését az adatbázisból.
     - ***Task<int> SaveChanges()*** - elmenti a megvalósított változásokat.
@@ -38,7 +38,7 @@ A  réteg a projekt DAL mappájában kerül megvalósításra
 ---
 ### Üzleti réteg
 A *Todos_BL* mappa tartalmazza az üzleti (logikai) réteget megvalósító *TodoManager.cs* osztályt.
-- A ***TodoManager.cs*** osztály metódusai biztosítják a megjelenítési rétegből érkező adatok validált változatát továbbadni az adatelérési rétegnek. Az osztály metódusai:
+- A ***TodoManager.cs*** osztály metódusai biztosítják a megjelenítési rétegből érkező adatok validált változatának továbbadását az adatelérési rétegnek. Az osztály metódusai:
     - ***public async Task<ActionResult<IEnumerable<Todo>>> GetSet(string nameToSearchFor = null)***:  visszaadja az adatelérés rétegben megvalósított *GetTodos* metódus eredményét.
     - ***public  Task<Todo> GetTodo(int id)***: lekérdezi az adatelérési rétegtől a paraméterben kapott id-jú teendőt.
     - ***public bool AddTodo([FromForm] Todo todo)*** : továbbadja az adatelérési rétegnek a paraméterben kapott teendőt, ha megfelel az ellenőrzési feltételeknek. A metódus megvizsgálja, hogy a todo-nak be vannak-e állítva a kötelező tulajdonságai. Ha legalább egy kötelező tulajdonságának nincs értéke, a todo nem kerül tövábbadásra az adatelérési réteghez és a metódus false visszatérési értékkel tér vissza a megjelenítési rétegbe.
@@ -67,7 +67,7 @@ A ClientApp mappa tartalmazza a megjelenítés megvalósításához szükséges 
     -  ***handleDelete = (todoID)***: a paraméterben megadott id-jú megjelenített tárgy törlése.
     -  ***render***: a html kód alapján,a megjelenítés megvalósítása a weboldalon.
 - ***Form.js***: új todo hozzáadását kezelő form elem megvalósítása. A form bekéri a felhasználótól az adatokat, majd az elsődleges validációs műveletek igazértékű kimenetelei esetén, elmenti az adatokat a megjelenítési réteg számára.
-- ***FormUpdate.js***: egy kilistázott todo módosítását megvalósító form elem leírása. Hasonlóan validál és módosításokat ment el a megjelenítési réteg számára, mint a Form.js osztályban megvalósított form.
+- ***FormUpdate.js***: egy kilistázott todo módosítását megvalósító form elem leírása. Hasonlóan validál és módosításokat ment el a megjelenítési réteg számára, mint a *Form.js* osztályban megvalósított form.
     - ***handleSave(event)*** és ***handleSaveUpdate(event)***: a formban megadott adatok elmentése.
 ---
 ### Tesztelés
